@@ -17,7 +17,7 @@ start=time.time()
 orig_greyscale=Image.open("test.png").convert("L")
 orig_greyscale.save("orig_greyscale.png")
 
-def bicubic_wgts_calc(x, a=-0.5):
+def bicubic_wgts_calc(x, a=-1):
     abs_x=np.abs(x)
     wgts=np.zeros_like(abs_x, dtype=np.float32)
     case1=abs_x<=1
@@ -55,3 +55,5 @@ large_img_arr=bicubic_upscale(img_arr, factor=2.0)
 print("time: "+str(round(time.time()-start, 4)))
 result=Image.fromarray(large_img_arr)
 result.save("output.jpg")
+nearest_neighbor= img.resize(large_img_arr.shape[::-1], Image.NEAREST)
+nearest_neighbor.save("nearest_neighbor.png")
